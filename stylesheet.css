@@ -49,6 +49,14 @@ button {
     color: black;
 }
 
+#zero {
+    flex: 2 1 65%;
+}
+
+#dot {
+    flex: 1 1 32%;
+}
+
 .operations {
     height: 300px;
     width: 100px;
@@ -70,13 +78,16 @@ button {
 
 .display p {
     flex: 1 1 80%;
-    background-color: darkslategrey;
+    background-color: rgb(149, 209, 209);
     padding: 30px 10px;
+    margin-right: 10px;
     font-size: 24px;
     color: black;
+    border-radius: 15px;
 }
 
 .display button {
     flex: 1 1 20%;
+    padding: 0px;
 }
 
