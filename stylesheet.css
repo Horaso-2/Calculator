@@ -1,13 +1,16 @@
 .container {
-    gap: 10px;
-    height: 800px;
-    width: 600px;
     margin: 40px 0;
     border-radius: 30px;
+    background-color: rgb(2, 2, 99);
+    height: 800px;
+    width: 600px;
+}
+
+.keyboard {
+    gap: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(2, 2, 99);
 }
 
 .buttons {
@@ -60,4 +63,20 @@ button {
     background-color: goldenrod;
 }
 
+.display {
+    display: flex;
+    margin: 100px 10px;
+}
+
+.display p {
+    flex: 1 1 80%;
+    background-color: darkslategrey;
+    padding: 30px 10px;
+    font-size: 24px;
+    color: black;
+}
+
+.display button {
+    flex: 1 1 20%;
+}
 
