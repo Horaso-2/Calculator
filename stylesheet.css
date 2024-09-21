@@ -1,10 +1,20 @@
 .container {
+    gap: 10px;
     height: 800px;
     width: 600px;
     margin: 40px 0;
     border-radius: 30px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgb(2, 2, 99);
+}
+
+.buttons {
+    height: 300px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .title {
@@ -19,3 +29,35 @@
     justify-content: center;
     flex-direction: column;
 }
+
+button {
+    border-style: solid;
+    font-size: 24px;
+    padding: 0px;
+    border-radius: 5px;
+    border-width: 0.5px;
+    border-color: white;
+}
+
+.digits button {
+    margin: 2px 2px;
+    flex: 1 1 30%;
+    background-color: white;
+    color: black;
+}
+
+.operations {
+    height: 300px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.operations button {
+    margin: 2px 0px;
+    flex: 1 1 20%;
+    background-color: goldenrod;
+}
+
+
