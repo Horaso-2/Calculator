@@ -83,9 +83,23 @@ let enterInput = (element) => {
 
 
 document.addEventListener('keydown', (event) => {
-    let key = event.key
+    let key = event.key;
 
     if (('0123456789+/*-').includes(key)) {
         updateInputLine(key);
-    }
-})
+    };
+
+    if (key === 'Delete') {
+        clearInputLine();
+    };
+
+    if (key === 'Backspace') {
+        let line = inputLine.textContent;
+        inputLine.textContent = line.slice(0, -1);
+    };
+
+    // SOMETHING LIKE BELOW FOR EQUALS
+    // if (key === '=') {
+    //     computeCalculation()
+    // }
+});
