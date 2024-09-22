@@ -40,6 +40,9 @@ btns.forEach((btn) => {
         decreaseOpacity(btn)
         });
 
+    btn.addEventListener('click', () => {
+        enterInput(btn)
+    });
 });
 
 
@@ -53,10 +56,20 @@ let decreaseOpacity = (element) => {
     element.style.opacity = `${newOpacity}`;
 };
 
+let updateInputLine = (update) => {
+    let inputLine = document.querySelector('.compute');
+    inputLine.textContent += String(update);
+}
+
 let enterInput = (element) => {
     if (element.classList.contains('digit')) {
-        let input = +element.innerText;
-        calculation.push(input);
+        let input = element.innerText;
+        updateInputLine(input);
+        calculation.push(+input);
     }
 
+    if (element.classList.contains('op')) {
+        let input = element.innerText;
+        updateInputLine(input);
+    };
 }
