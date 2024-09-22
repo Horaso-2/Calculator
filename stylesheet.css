@@ -69,11 +69,11 @@ button {
     color: black;
 }
 
-#zero {
-    flex: 2 1 65%;
+.buttons .zero{
+    flex: 2 1 61%;
 }
 
-#dot {
+.dot {
     flex: 1 1 32%;
 }
 

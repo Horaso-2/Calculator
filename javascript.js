@@ -96,7 +96,7 @@ document.addEventListener('keydown', (event) => {
         } else {
             let line = inputLine.textContent;
             inputLine.textContent = line.slice(0, -1) + key;
-        }
+        };
     };
 
     if (key === 'Delete') {
@@ -109,7 +109,9 @@ document.addEventListener('keydown', (event) => {
     };
 
     // SOMETHING LIKE BELOW FOR EQUALS
+    //
     // if (key === '=') {
+    //     checkLastCharNotOperator()
     //     checkDivByZero()
     //     computeCalculation()
     // }
