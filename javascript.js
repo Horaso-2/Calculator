@@ -65,7 +65,7 @@ let updateInputLine = (update) => {
 let clearInputLine = () => inputLine.textContent = '';
 
 let enterInput = (element) => {
-    if (element.classList.contains('digit')) {
+    if (element.classList.contains('digit') || element.classList.contains('dot')) {
         let input = element.innerText;
         updateInputLine(input);
         // calculation.push(+input); NOT SURE IF THIS WILL BE NEEDED
@@ -85,7 +85,7 @@ let enterInput = (element) => {
 document.addEventListener('keydown', (event) => {
     let key = event.key;
 
-    if (('0123456789+/*-').includes(key)) {
+    if (('0123456789+/*-.').includes(key)) {
         updateInputLine(key);
     };
 
@@ -100,6 +100,8 @@ document.addEventListener('keydown', (event) => {
 
     // SOMETHING LIKE BELOW FOR EQUALS
     // if (key === '=') {
+    //     checkDivByZero()
     //     computeCalculation()
     // }
 });
+
