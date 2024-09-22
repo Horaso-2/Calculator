@@ -1,6 +1,6 @@
 body, html {
     height: 99%;
-    background-color: goldenrod;
+    background-color: #2274A5;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .content-wrapper {
@@ -14,7 +14,8 @@ body, html {
 .container {
     margin: 40px 0;
     border-radius: 30px;
-    background-color: rgb(0, 0, 0);
+    /* background-color: rgb(0, 0, 0); */
+    background-color: #1c1d1a;
     height: 600px;
     width: 600px;
     display: flex;
@@ -41,6 +42,7 @@ body, html {
 
 .title {
     font-size: 30px;
+    color: white;
 }
 
 .content-wrapper {
@@ -86,7 +88,8 @@ button {
 .operations button {
     margin: 2px 0px;
     flex: 1 1 20%;
-    background-color: goldenrod;
+    background-color: #2274A5;
+    color: white
 }
 
 .display {
@@ -96,21 +99,35 @@ button {
     height: 100px;
 }
 
-.display p {
-    vertical-align: middle;
+.display .input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1 1 80%;
     background-color: lightgrey;
-    padding: 10px;
+    padding: 4px 12px;
     margin: 0 10px 0 0;
     font-size: 40px;
     color: black;
     border-radius: 15px;
 }
 
+.display p {
+    margin: 0
+}
+
+.display .result {
+    text-align: right;
+}
+
+.display .compute {
+    color: rgb(54, 54, 54);
+}
+
 .display button {
     width: 100px;
     flex: auto;
-    background-color: goldenrod;
+    background-color: #2274A5;
     color: white;
 
 }
