@@ -56,20 +56,27 @@ let decreaseOpacity = (element) => {
     element.style.opacity = `${newOpacity}`;
 };
 
+let inputLine = document.querySelector('.compute');
+
 let updateInputLine = (update) => {
-    let inputLine = document.querySelector('.compute');
     inputLine.textContent += String(update);
-}
+};
+
+let clearInputLine = () => inputLine.textContent = '';
 
 let enterInput = (element) => {
     if (element.classList.contains('digit')) {
         let input = element.innerText;
         updateInputLine(input);
-        calculation.push(+input);
+        // calculation.push(+input); NOT SURE IF THIS WILL BE NEEDED
     }
 
     if (element.classList.contains('op')) {
         let input = element.innerText;
         updateInputLine(input);
     };
+
+    if (element.classList.contains('delete')) {
+        clearInputLine();
+    }
 }
