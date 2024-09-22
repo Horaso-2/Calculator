@@ -43,6 +43,7 @@ btns.forEach((btn) => {
     btn.addEventListener('click', () => {
         enterInput(btn)
     });
+
 });
 
 
@@ -89,8 +90,8 @@ document.addEventListener('keydown', (event) => {
         updateInputLine(key);
     };
 
-    if (('+/*-.').includes(key)) {
-        if (!('+/*-'.includes(inputLine.textContent.charAt(-1)))){
+    if (('+/*-').includes(key)) {
+        if (!('+/*-'.includes(inputLine.textContent.charAt(inputLine.textContent.length-1)))){
             updateInputLine(key);
         } else {
             let line = inputLine.textContent;
