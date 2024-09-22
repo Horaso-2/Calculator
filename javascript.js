@@ -69,7 +69,7 @@ let enterInput = (element) => {
         let input = element.innerText;
         updateInputLine(input);
         // calculation.push(+input); NOT SURE IF THIS WILL BE NEEDED
-    }
+    };
 
     if (element.classList.contains('op')) {
         let input = element.innerText;
@@ -78,5 +78,14 @@ let enterInput = (element) => {
 
     if (element.classList.contains('delete')) {
         clearInputLine();
+    };
+};
+
+
+document.addEventListener('keydown', (event) => {
+    let key = event.key
+
+    if (('0123456789+/*-').includes(key)) {
+        updateInputLine(key);
     }
-}
+})
