@@ -44,6 +44,14 @@ btns.forEach((btn) => {
         enterInput(btn)
     });
 
+    btn.addEventListener('mousedown', () => {
+        increaseOpacity(btn);
+    });
+
+    btn.addEventListener('mouseup', () => {
+        decreaseOpacity(btn);
+    });
+
 });
 
 
@@ -111,7 +119,7 @@ document.addEventListener('keydown', (event) => {
     if (key === 'Backspace') {
         let line = inputLine.textContent;
         inputLine.textContent = line.slice(0, -1);
-    };
+    };  
 
     // SOMETHING LIKE BELOW FOR EQUALS
     //
