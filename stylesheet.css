@@ -1,6 +1,6 @@
 body, html {
     height: 99%;
-    background-color: #2274A5;
+    background-color: #4590CD;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .content-wrapper {
@@ -85,11 +85,15 @@ button {
     justify-content: center;
 }
 
+.operations button,
+.display button {
+    background-color: #4590CD;
+    color: white
+}
+
 .operations button {
     margin: 2px 0px;
     flex: 1 1 20%;
-    background-color: #2274A5;
-    color: white
 }
 
 .display {
@@ -127,8 +131,5 @@ button {
 .display button {
     width: 100px;
     flex: auto;
-    background-color: #2274A5;
-    color: white;
-
 }
 
