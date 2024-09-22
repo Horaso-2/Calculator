@@ -82,6 +82,11 @@ let enterInput = (element) => {
     };
 };
 
+// SUPPRESS ENTER FROM TRIGGERING LAST PRESSED BUTTON
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') e.preventDefault();
+});
+
 
 document.addEventListener('keydown', (event) => {
     let key = event.key;
@@ -116,4 +121,6 @@ document.addEventListener('keydown', (event) => {
     //     computeCalculation()
     // }
 });
+
+
 
