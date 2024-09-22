@@ -85,8 +85,17 @@ let enterInput = (element) => {
 document.addEventListener('keydown', (event) => {
     let key = event.key;
 
-    if (('0123456789+/*-.').includes(key)) {
+    if (('0123456789.').includes(key)) {
         updateInputLine(key);
+    };
+
+    if (('+/*-.').includes(key)) {
+        if (!('+/*-'.includes(inputLine.textContent.charAt(-1)))){
+            updateInputLine(key);
+        } else {
+            let line = inputLine.textContent;
+            inputLine.textContent = line.slice(0, -1) + key;
+        }
     };
 
     if (key === 'Delete') {
