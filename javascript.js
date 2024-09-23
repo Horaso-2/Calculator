@@ -50,6 +50,7 @@ btns.forEach((btn) => {
         if (btn.classList.contains('op')) inputOperator(btn.textContent);
         if (btn.classList.contains('eq')) computeInput();
         if (btn.classList.contains('delete')) deleteInput();
+        if (btn.classList.contains('dot')) inputDot(btn.textContent);
     });
 });
 
@@ -84,6 +85,7 @@ let arg1 = '';
 let arg2 = '';
 let operator = '';
 let answerPrinted = false;
+
 let operatorIndex = null;
 
 let deleteInput = () => {
@@ -92,6 +94,7 @@ let deleteInput = () => {
     arg1 = '';
     arg2 = '';
     operator = '';
+    answerPrinted = false;
 };
 
 let inputNumber = (elem) => {
@@ -102,24 +105,37 @@ let inputNumber = (elem) => {
         clearInputLine();
         answerPrinted = false; 
     };
-    if ('+-*/'.includes(calculation.slice(-1))) clearInputLine();
+    // Need to implement the following. Inputting numbers after operators must allow display to show '-2' if '-' is the first character on display
+    // But if another '-' is entered, the display must be wiped
+    // So, '-' should not trigger deletion but '-2' should
+    if (('+*/'.includes(calculation.slice(-1))) || (('-').includes(calculation.slice(-1)) && inputLine.textContent.length !== 1)) clearInputLine();
     calculation += elem;
     updateInputLine(elem);
 };
 
 let inputOperator = (elem) => {
-    answerPrinted = false;
-    if (arg1 && arg2) computeInput();
     if ('+-*/'.includes(calculation.slice(-1))) {calculation = calculation.slice(0, -1)}
+    if (calculation.includes('*') || calculation.includes('-') || calculation.includes('/') || calculation.includes('-')) {
+        computeInput();
+    };
+    if (elem === '-' && inputLine.textContent.length === 0) inputLine.textContent += elem;
     operatorIndex = calculation.length; 
     arg1 = calculation;
     operator = elem;
     calculation += elem;
+    answerPrinted = false;
 };
 
-// let inputDot = (elem) => {
+let allowDot = () => {
+    return inputLine.textContent.includes('.') ? false : true;
+}
 
-// };
+let inputDot = (elem) => {
+    if (allowDot()) {
+        calculation += elem;
+        updateInputLine(elem);
+    }
+};
 
 let computeInput = () => {
     arg2 = calculation.slice(operatorIndex + 1);
@@ -128,6 +144,7 @@ let computeInput = () => {
     clearInputLine();
     updateInputLine(result);
     arg1 = calculation;
+    arg2 = '';
     answerPrinted = true;
 }
 
