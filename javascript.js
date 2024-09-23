@@ -1,4 +1,10 @@
 function operate (arg1, op, arg2) {
+    arg1 = (arg1 === '') ? 0 : +arg1;
+    arg2 = (arg2 === '') ? 0 : +arg2;
+    if (!op) {
+        op = '+';
+        arg1 = +calculation;
+    };  
     switch(op) {
         case '+':
             return add(arg1, arg2);
@@ -137,9 +143,11 @@ let inputDot = (elem) => {
     }
 };
 
+// REMAINING ISSUE: if you input a number and press =, it will print 0
+
 let computeInput = () => {
     arg2 = calculation.slice(operatorIndex + 1);
-    result = operate(+arg1, operator, +arg2);
+    result = operate(arg1, operator, arg2);
     calculation = String(result);
     clearInputLine();
     updateInputLine(result);
