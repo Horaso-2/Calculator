@@ -103,11 +103,12 @@ button {
     height: 100px;
 }
 
-.display .input {
+.display p {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 1 1 80%;
+    color: rgb(54, 54, 54);
     background-color: lightgrey;
     padding: 4px 12px;
     margin: 0 10px 0 0;
@@ -116,17 +117,8 @@ button {
     border-radius: 15px;
 }
 
-.display p {
-    margin: 0
-}
 
-.display .result {
-    text-align: right;
-}
 
-.display .compute {
-    color: rgb(54, 54, 54);
-}
 
 .display button {
     width: 100px;
