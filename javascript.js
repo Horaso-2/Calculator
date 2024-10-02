@@ -80,6 +80,7 @@ let resetOpacity = () => btns.forEach((btn) => {
 let clearInputLine = () => inputLine.textContent = '';
 
 let updateInputLine = (update) => {
+    if (inputLine.textContent === 'NaN' || inputLine.textContent === 'Infinity') return;
     inputLine.textContent += String(update);
 
     if (inputLine.textContent.length > 19 && inputLine.textContent.includes('.')) {
@@ -127,7 +128,7 @@ let inputNumber = (elem) => {
     // Need to implement the following. Inputting numbers after operators must allow display to show '-2' if '-' is the first character on display
     // But if another '-' is entered, the display must be wiped
     // So, '-' should not trigger deletion but '-2' should
-    if (('+*/'.includes(calculation.slice(-1))) || (('-').includes(calculation.slice(-1)) && inputLine.textContent.length !== 1)) clearInputLine();
+    if (('+*/'.includes(calculation.slice(-1))) || (('-').includes(calculation.slice(-1)) && inputLine.textContent !== '-')) clearInputLine();
     calculation += elem;
     updateInputLine(elem);
 };
@@ -155,6 +156,10 @@ let inputDot = (elem) => {
         updateInputLine(elem);
     }
 };
+
+// THERE IS SOMETHING BAD GOING ON HERE: try inputting, e.g., 6, +, 9, *, 2
+// Not only will it not produce intermediate result after '*' has been entered, it will give a NaN on the entire calculation
+// Need to look into the if-condition of the computeInput()
 
 let computeInput = () => {
     if (operator) {
