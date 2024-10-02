@@ -146,8 +146,12 @@ let inputDot = (elem) => {
 // REMAINING ISSUE: if you input a number and press =, it will print 0
 
 let computeInput = () => {
-    arg2 = calculation.slice(operatorIndex + 1);
-    result = operate(arg1, operator, arg2);
+    if (operator) {
+        arg2 = calculation.slice(operatorIndex + 1);
+        result = operate(arg1, operator, arg2);
+    } else {
+        result = inputLine.textContent;
+    }
     calculation = String(result);
     clearInputLine();
     updateInputLine(result);
