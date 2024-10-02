@@ -81,10 +81,23 @@ let clearInputLine = () => inputLine.textContent = '';
 
 let updateInputLine = (update) => {
     inputLine.textContent += String(update);
+
+    if (inputLine.textContent.length > 19 && inputLine.textContent.includes('.')) {
+        inputLine.textContent = parseFloat(inputLine.textContent).toFixed(maxLengthOfInput - inputLine.textContent.indexOf('.') - 1);
+        return
+    }
+
+    if (inputLine.textContent.length > 19) {
+        inputLine.textContent = String(Number(inputLine.textContent).toExponential(5));
+    }
+
 };
 
 // This variable will store arg1, operator and arg2
 let calculation = '';
+
+// Input line on the calculator can take this many symbols without stretching
+const maxLengthOfInput = 19
 
 // arg1 and arg2 are strings but will be passed to operate() as numbers
 let arg1 = '';
@@ -143,8 +156,6 @@ let inputDot = (elem) => {
     }
 };
 
-// REMAINING ISSUE: if you input a number and press =, it will print 0
-
 let computeInput = () => {
     if (operator) {
         arg2 = calculation.slice(operatorIndex + 1);
@@ -167,6 +178,16 @@ let computeInput = () => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') e.preventDefault();
 });
+
+function inputTooLong () {
+    if (inputLine.textContent.length >= 19) {
+        return True
+    }
+    return False
+}
+
+
+
 
 
 // document.addEventListener('keydown', (event) => {
