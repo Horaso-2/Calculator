@@ -106,7 +106,7 @@ let deleteInput = () => {
 
 
 function receiveOperator(elem) {
-    if (arg1_on && arg1 === '-') return;
+    if (arg1_on && (arg1 === '-' || arg1 === '')) return;
 
     calculation_done = false;
 
