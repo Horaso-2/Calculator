@@ -1,6 +1,6 @@
 function operate (arg1, op, arg2) {
     arg1 = (arg1 === '') ? 0 : +arg1;
-    arg2 = (arg2 === '') ? 0 : +arg2;
+    arg2 = (arg2 === '') ? +arg1 : +arg2;
     if (!op) {
         op = '+';
         arg1 = +calculation;
