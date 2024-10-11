@@ -199,39 +199,39 @@ document.addEventListener('keydown', (e) => {
 
 
 
-// document.addEventListener('keydown', (event) => {
-//     let key = event.key;
+document.addEventListener('keydown', (event) => {
+    let key = event.key;
 
-//     if (('0123456789.').includes(key)) {
-//         updateInputLine(key);
-//     };
+    if (('0123456789.').includes(key)) {
+        receiveDigitOrDot(key);
+    };
 
-//     if (('+/*-').includes(key)) {
-//         if (!('+/*-'.includes(inputLine.textContent.charAt(inputLine.textContent.length-1)))){
-//             updateInputLine(key);
-//         } else {
-//             let line = inputLine.textContent;
-//             inputLine.textContent = line.slice(0, -1) + key;
-//         };
-//     };
+    if (('+/*-').includes(key)) {
+        receiveOperator(key);
+    };
 
-//     if (key === 'Delete') {
-//         clearInputLine();
-//     };
+    if (key === 'Delete') {
+        deleteInput();
+    };
 
-//     if (key === 'Backspace') {
-//         let line = inputLine.textContent;
-//         inputLine.textContent = line.slice(0, -1);
-//     };  
+    if (key === 'Backspace') {
+        if (arg1_on && arg1.length > 0) {
+            arg1 = arg1.slice(0, -1);
+            inputLine.textContent = inputLine.textContent.slice(0, -1);
+        }
 
-//     // SOMETHING LIKE BELOW FOR EQUALS
-//     //
-//     // if (key === '=') {
-//     //     checkLastCharNotOperator()
-//     //     checkDivByZero()
-//     //     computeCalculation()
-//     // }
-// });
+        if (!arg1_on && arg2 !== '') {
+            arg2 = arg2.slice(0, -1);
+            inputLine.textContent = inputLine.textContent.slice(0, -1);
+        }
+    };  
+
+    if (key === 'Enter') {
+        computeInput();
+    }
+
+
+});
 
 
 
