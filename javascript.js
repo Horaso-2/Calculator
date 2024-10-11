@@ -151,11 +151,11 @@ function receiveDigitOrDot(elem) {
     }
 
     if (elem === '.') {
-        if ((arg1_on) && (arg1.contains('.'))) {
+        if ((arg1_on) && (arg1.includes('.'))) {
             return
         }
 
-        if ((!arg1_on) && (arg2.contains('.'))) {
+        if ((!arg1_on) && (arg2.includes('.'))) {
             return
         }
     }
@@ -234,15 +234,6 @@ document.addEventListener('keydown', (e) => {
 // });
 
 
-// Keep track of two things: the string on the screen and the string collecting the entire input
-// When the user enters, in succession, '2', '+', '3', the string on the screen demonstrates single numbers; the memory string collects '2+3' and 
-// collects the thing before '+' into arg1 and the thing after it into arg2 and passes them into function according to the operator (add(arg1, arg2) in this case)
-// The answer is then displayed
-
-
-// How to implement?
-// First, the display does not get updated with operators - only with 1-9 and '.'
-// Second, the function corresponding to the operator pressed in called when the user presses '='
 
 
 
