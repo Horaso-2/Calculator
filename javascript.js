@@ -52,11 +52,10 @@ btns.forEach((btn) => {
     });
 
     btn.addEventListener('click', () => {
-        if (btn.classList.contains('digit')) inputNumber(btn.textContent);
-        if (btn.classList.contains('op')) inputOperator(btn.textContent);
+        if (btn.classList.contains('digit') || btn.classList.contains('dot')) receiveDigitOrDot(btn.textContent);
+        if (btn.classList.contains('op')) receiveOperator(btn.textContent);
         if (btn.classList.contains('eq')) computeInput();
         if (btn.classList.contains('delete')) deleteInput();
-        if (btn.classList.contains('dot')) inputDot(btn.textContent);
     });
 });
 
@@ -79,21 +78,6 @@ let resetOpacity = () => btns.forEach((btn) => {
 
 let clearInputLine = () => inputLine.textContent = '';
 
-let updateInputLine = (update) => {
-    if (inputLine.textContent === 'NaN' || inputLine.textContent === 'Infinity') return;
-    inputLine.textContent += String(update);
-
-    if (inputLine.textContent.length > 19 && inputLine.textContent.includes('.')) {
-        inputLine.textContent = parseFloat(inputLine.textContent).toFixed(maxLengthOfInput - inputLine.textContent.indexOf('.') - 1);
-        return
-    }
-
-    if (inputLine.textContent.length > 19) {
-        inputLine.textContent = String(Number(inputLine.textContent).toExponential(5));
-    }
-
-};
-
 // This variable will store arg1, operator and arg2
 let calculation = '';
 
@@ -104,9 +88,11 @@ const maxLengthOfInput = 19
 let arg1 = '';
 let arg2 = '';
 let operator = '';
-let answerPrinted = false;
+// By default, the first input entered correspond to the first argument of the operation.
+// This boolean keeps track of whether the input is part of arg1 or arg2
+let arg1_on = true
 
-let operatorIndex = null;
+let calculation_done = false
 
 let deleteInput = () => {
     clearInputLine();
@@ -114,67 +100,90 @@ let deleteInput = () => {
     arg1 = '';
     arg2 = '';
     operator = '';
-    answerPrinted = false;
+    calculation_done = false;
+    arg1_on = true;
 };
 
-let inputNumber = (elem) => {
-        // check if the number replaces previous answer
-        // check if the number extends existing argument
-    if (answerPrinted) {
-        deleteInput();
-        clearInputLine();
-        answerPrinted = false; 
-    };
-    // Need to implement the following. Inputting numbers after operators must allow display to show '-2' if '-' is the first character on display
-    // But if another '-' is entered, the display must be wiped
-    // So, '-' should not trigger deletion but '-2' should
-    if (('+*/'.includes(calculation.slice(-1))) || (('-').includes(calculation.slice(-1)) && inputLine.textContent !== '-')) clearInputLine();
-    calculation += elem;
-    updateInputLine(elem);
-};
 
-let inputOperator = (elem) => {
-    if ('+-*/'.includes(calculation.slice(-1))) {calculation = calculation.slice(0, -1)}
-    if (calculation.includes('*') || calculation.includes('-') || calculation.includes('/') || calculation.includes('-')) {
+function receiveOperator(elem) {
+    if (arg1_on && arg1 === '-') return;
+
+    calculation_done = false;
+
+    // handles the case if user carries on with a result from previous calculation
+    if (!(arg1 === '') && !(arg2 === '')) {
         computeInput();
-    };
-    if (elem === '-' && inputLine.textContent.length === 0) inputLine.textContent += elem;
-    operatorIndex = calculation.length; 
-    arg1 = calculation;
-    operator = elem;
-    calculation += elem;
-    answerPrinted = false;
-};
+        calculation_done = false;
+    }
 
-let allowDot = () => {
-    return inputLine.textContent.includes('.') ? false : true;
+    if ('*/+'.includes(elem)) {
+        arg1_on = false;
+        operator = elem;
+    } 
+
+    // Need the following functionality for '-': 
+    // If it figures as the first symbol of arg1, show it. If not, do not.
+    if (elem === '-') {
+        if (arg1_on && arg1 === '') {
+            inputLine.textContent += elem;
+            arg1 += elem;
+        } else {
+            arg1_on = false;
+            operator = elem;
+        }
+    }
 }
 
-let inputDot = (elem) => {
-    if (allowDot()) {
-        calculation += elem;
-        updateInputLine(elem);
+function receiveDigitOrDot(elem) {
+
+    // If the input has reached max length, do not accept further inputs to this arg
+    if (inputLine.textContent.length >= 19) {
+        return
     }
-};
 
-// THERE IS SOMETHING BAD GOING ON HERE: try inputting, e.g., 6, +, 9, *, 2
-// Not only will it not produce intermediate result after '*' has been entered, it will give a NaN on the entire calculation
-// Need to look into the if-condition of the computeInput()
+    if (calculation_done === true) {
+        deleteInput();
+        // arg1_on = true;
+        arg1 += elem;
+        inputLine.textContent += elem;
+        return
+    }
 
-let computeInput = () => {
-    if (operator) {
-        arg2 = calculation.slice(operatorIndex + 1);
-        result = operate(arg1, operator, arg2);
+    if (elem === '.') {
+        if ((arg1_on) && (arg1.contains('.'))) {
+            return
+        }
+
+        if ((!arg1_on) && (arg2.contains('.'))) {
+            return
+        }
+    }
+    
+    if (arg1_on) {
+        arg1 += elem;
+        inputLine.textContent += elem;
     } else {
-        result = inputLine.textContent;
+        inputLine.textContent = (arg2 === '') ? elem : inputLine.textContent + elem;
+        arg2 += elem;
     }
-    calculation = String(result);
-    clearInputLine();
-    updateInputLine(result);
-    arg1 = calculation;
-    arg2 = '';
-    answerPrinted = true;
 }
+
+function computeInput() {
+    let result = operate(arg1, operator, arg2);
+    if (String(result).length >= 19) {
+        result = result.toExponential();
+    }
+
+    inputLine.textContent = String(result);
+
+    // Annul operator and second argument to prepare for next calculation. 
+    // Save result into arg1 in case the user wants to continue manipulating the result immediately
+    arg2 = '';
+    operator = '';
+    arg1 = String(result);
+    calculation_done = true;
+}
+
 
 
 
@@ -184,12 +193,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') e.preventDefault();
 });
 
-function inputTooLong () {
-    if (inputLine.textContent.length >= 19) {
-        return True
-    }
-    return False
-}
 
 
 
