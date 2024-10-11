@@ -228,9 +228,7 @@ document.addEventListener('keydown', (event) => {
 
     if (key === 'Enter') {
         computeInput();
-    }
-
-
+    };
 });
 
 
