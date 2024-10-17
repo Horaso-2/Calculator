@@ -82,7 +82,7 @@ let clearInputLine = () => inputLine.textContent = '';
 let calculation = '';
 
 // Input line on the calculator can take this many symbols without stretching
-const maxLengthOfInput = 19
+const maxLengthOfInput = 16;
 
 // arg1 and arg2 are strings but will be passed to operate() as numbers
 let arg1 = '';
@@ -138,7 +138,7 @@ function receiveOperator(elem) {
 function receiveDigitOrDot(elem) {
 
     // If the input has reached max length, do not accept further inputs to this arg
-    if (inputLine.textContent.length >= 19) {
+    if (inputLine.textContent.length >= maxLengthOfInput) {
         return
     }
 
@@ -171,7 +171,7 @@ function receiveDigitOrDot(elem) {
 
 function computeInput() {
     let result = operate(arg1, operator, arg2);
-    if (String(result).length >= 19) {
+    if (String(result).length >= maxLengthOfInput) {
         result = result.toExponential();
     }
 
@@ -185,19 +185,10 @@ function computeInput() {
     calculation_done = true;
 }
 
-
-
-
-
 // SUPPRESS ENTER FROM TRIGGERING LAST PRESSED BUTTON
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') e.preventDefault();
 });
-
-
-
-
-
 
 document.addEventListener('keydown', (event) => {
     let key = event.key;
