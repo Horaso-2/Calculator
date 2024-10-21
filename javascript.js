@@ -82,7 +82,7 @@ let clearInputLine = () => inputLine.textContent = '';
 let calculation = '';
 
 // Input line on the calculator can take this many symbols without stretching
-const maxLengthOfInput = 16;
+const maxLengthOfInput = 15;
 
 // arg1 and arg2 are strings but will be passed to operate() as numbers
 let arg1 = '';
@@ -174,9 +174,11 @@ function receiveDigitOrDot(elem) {
 function computeInput() {
     let result = operate(arg1, operator, arg2);
 
-
-    if (String(result).length >= maxLengthOfInput) {
-        result = (String(result).includes('.')) ? parseFloat(result.toFixed(15)) : result.toExponential(6);
+    // check if result is too big or too long
+    if (result >= Number.MAX_SAFE_INTEGER) {
+        result = result.toExponential(6)
+    } else if (String(result).length >= maxLengthOfInput) {
+        result = (String(result).includes('.')) ? result.toFixed(maxLengthOfInput) : result.toExponential(6);
     }
 
     inputLine.textContent = String(result);
