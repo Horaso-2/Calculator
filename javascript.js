@@ -137,6 +137,8 @@ function receiveOperator(elem) {
 
 function receiveDigitOrDot(elem) {
 
+    // NEED TO HANDLE THE CORNER CASE: len(arg1) = 16 but we still need to accept arg2 and display it. But the function returns due to the first if-conditions
+
     // If the input has reached max length, do not accept further inputs to this arg
     if (inputLine.textContent.length >= maxLengthOfInput) {
         return
@@ -171,8 +173,10 @@ function receiveDigitOrDot(elem) {
 
 function computeInput() {
     let result = operate(arg1, operator, arg2);
+
+
     if (String(result).length >= maxLengthOfInput) {
-        result = result.toExponential();
+        result = (String(result).includes('.')) ? parseFloat(result.toFixed(15)) : result.toExponential(6);
     }
 
     inputLine.textContent = String(result);
@@ -221,8 +225,6 @@ document.addEventListener('keydown', (event) => {
         computeInput();
     };
 });
-
-
 
 
 
